@@ -3,7 +3,6 @@
 
 @theme{
   --font-header: 'League Gothic', sans-serif;
-  --font-body: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   --color-under: oklch(66.916% 0.15409 241.47);
   --color-pearl-black: oklch(19.4% .047 245.441);
   --breakpoint-tablet: 640px;

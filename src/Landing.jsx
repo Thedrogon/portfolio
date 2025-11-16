@@ -63,8 +63,12 @@ const Landing = () => {
               <p className="text-[17px]">Throughout the years I have realised, <p className="text-white italic font-medium">"the best way to improve and thrive in a skill is to teach that very skill to others".</p> For the sake of that I made this solemn resolve to grind leetcode and write Medium blogs everyday about the topic I study on that very same day. If you like to read too, you can visit me in 
                 <a href="#" className="text-white font-bold underline decoration-2 decoration-slate-400">  Medium</a>.
               </p>
-              <div>
-                <a href=""></a>
+              <div className="flex space-x-3 items-center justify-start gap-3 text-lg text-white font-semibold">
+                <div>
+                  <a href="#" className="underline decoration-3 decoration-slate-400">read my blogs</a>
+
+                </div>
+                <a href="#">check my leetcode</a>
               </div>
           </section>
         </div>
