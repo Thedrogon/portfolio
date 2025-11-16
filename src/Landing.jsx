@@ -49,18 +49,23 @@ const Landing = () => {
           </picture>
           <section className="space-y-4 text-slate-300 tablet:order-last">
             <h1 className="text-[20px]">Hi I'm <strong className="text-[23px] text-white">Shayan,</strong></h1>
-            <p className="text-[16px]">
+            <p className="text-[17px]">
               A
               <strong className="text-white"> software engineering student </strong> 
               based in India, passionate about emerging technologies and building meaningful software.
             </p>
-              <p className="text-[16px]">
+              <p className="text-[17px]">
                 As a final year student, I tend to deep dive my interests into <strong className="text-white">javascript</strong> and <strong className="text-white">python.</strong> I have explored a lot of libraries and frameworks but the ones that I work mostly with 
                 is <strong>React.js </strong>and <strong>FastAPI.</strong> Right now I am learning <strong>typescript </strong>so that while making my projects I can finally use <strong>Next.</strong>
               </p>
-              <p>I have been working on a few fullstack projects that are mostly <strong>Saas apps.</strong> Some of them are listed in the
-              <a href="#" className="font-bold text-white "> projects</a> area.</p>
-
+              <p className="text-[17px]">I have been working on a few fullstack projects that are mostly <strong>Saas apps.</strong> Some of them are listed in the
+              <a href="#" className="font-bold text-white underline decoration-2 decoration-slate-400">   projects</a> area.</p>
+              <p className="text-[17px]">Throughout the years I have realised, <p className="text-white italic font-medium">"the best way to improve and thrive in a skill is to teach that very skill to others".</p> For the sake of that I made this solemn resolve to grind leetcode and write Medium blogs everyday about the topic I study on that very same day. If you like to read too, you can visit me in 
+                <a href="#" className="text-white font-bold underline decoration-2 decoration-slate-400">  Medium</a>.
+              </p>
+              <div>
+                <a href=""></a>
+              </div>
           </section>
         </div>
       </div>
