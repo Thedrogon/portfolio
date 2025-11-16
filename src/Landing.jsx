@@ -1,0 +1,68 @@
+import "./index.css";
+import github from "./assets/github.svg";
+import linkedin from "./assets/linkedin.svg";
+import mailme from "./assets/mailme.svg";
+//import pic1 from "./assets/pic1.avif"
+//import pic2 from "./assets/pic2.webp"
+import pic4 from "./assets/pic4.jpg"
+
+const Landing = () => {
+  return (
+    <div className="mx-auto max-w-7xl my-6 text-white grid grid-cols-1 lg:grid-cols-3 sm:grid-cols-2 md:px-8 px-4 sm:my-10 items-center gap-6">
+      <header>
+        <h1 className="whitespace-nowrap lg:order-1">
+          <a
+            href="/"
+            className="font-header text-6xl hover:underline decoration-slate-400"
+          >
+            Shayan Mukherjee
+          </a>
+        </h1>
+      </header>
+      <div className="order-1 flex items-center justify-between gap-4 sm:order-0 sm:justify-end lg:order-3">
+        <a href="#">
+          <img src={github} alt="github" />
+        </a>
+        <a href="#">
+          <img src={linkedin} alt="linkedin" />
+        </a>
+      </div>
+      <nav className="flex items-center sm:justify-end lg:justify-center sm:col-start-2 gap-6 lg:order-2">
+        <a
+          href="#"
+          className="font-semibold text-lg hover:underline decoration-slate-400 decoration-4"
+        >
+          Projects
+        </a>
+        <a
+          href="#"
+          className="font-semibold text-lg hover:underline decoration-slate-400 decoration-4 flex items-center justify-center space-x-1.5"
+        >
+          <img src={mailme} alt="Mail me" className="h-5 "/>
+          <p>Let's talk</p>
+        </a>
+      </nav>
+      <div className="my-6 col-span-full lg:order-3">
+        <div className="grid tablet:grid-cols-2 grid-cols-1 gap-4">
+          <picture>
+            <img src={pic4} alt="Me" width={768} height={1024} className="block aspect-3/4 max-w-full rounded-lg shadow-lg sm:w-72 lg:w-96"/>
+          </picture>
+          <section className="space-y-4 text-slate-300 tablet:order-last">
+            <h1 className="text-[20px]">Hi I'm <strong className="text-[23px] text-white">Shayan,</strong></h1>
+            <p className="text-[16px]">
+              A
+              <strong className="text-white"> software engineering student </strong> 
+              based in India, passionate about emerging technologies and building meaningful software.
+            </p>
+              <p className="text-[16px]">
+                As a final year student, I tend to deep dive my interests into <strong className="text-white">javascript</strong> and <strong className="text-white">python.</strong> 
+              </p>
+
+          </section>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Landing;
