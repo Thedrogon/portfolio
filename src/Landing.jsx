@@ -43,7 +43,7 @@ const Landing = () => {
         </a>
       </nav>
       <div className="my-6 col-span-full lg:order-3">
-        <div className="grid tablet:grid-cols-2 grid-cols-1 gap-4">
+        <div className="grid tablet:grid-cols-2 grid-cols-1 gap-2">
           <picture>
             <img src={pic4} alt="Me" width={768} height={1024} className="block aspect-3/4 max-w-full rounded-lg shadow-lg sm:w-72 lg:w-96"/>
           </picture>
@@ -55,8 +55,11 @@ const Landing = () => {
               based in India, passionate about emerging technologies and building meaningful software.
             </p>
               <p className="text-[16px]">
-                As a final year student, I tend to deep dive my interests into <strong className="text-white">javascript</strong> and <strong className="text-white">python.</strong> 
+                As a final year student, I tend to deep dive my interests into <strong className="text-white">javascript</strong> and <strong className="text-white">python.</strong> I have explored a lot of libraries and frameworks but the ones that I work mostly with 
+                is <strong>React.js </strong>and <strong>FastAPI.</strong> Right now I am learning <strong>typescript </strong>so that while making my projects I can finally use <strong>Next.</strong>
               </p>
+              <p>I have been working on a few fullstack projects that are mostly <strong>Saas apps.</strong> Some of them are listed in the
+              <a href="#" className="font-bold text-white "> projects</a> area.</p>
 
           </section>
         </div>
