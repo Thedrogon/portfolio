@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Docs-style layout — independent left bar + toggle + scrollspy</title>
+<style>
+  :root{
+    --nav-width: 320px;       /* full visible width when expanded */
+    --peek-width: 44px;       /* amount visible when collapsed */
+    --toggle-size: 40px;
+    --gap: 24px;
+    --accent: #0ea5e9;        /* sky-500 */
+    --muted: #6b7280;         /* gray-500 */
+    --bg: #f8fafc;
+    --card: #ffffff;
+  }
+
+  html,body {
+    height: 100%;
+    margin: 0;
+  }
+
+  body {
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background: var(--bg);
+    color: #111827;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
+
+  /* Outer wrapper takes full viewport height */
+  .page {
+    height: 100vh;
+    display: block;
+    position: relative;
+    overflow: hidden; /* we'll manage scrolling inside the content area */
+  }
+
+  /* Right content area (scrollable) */
+  .content-wrap {
+    height: 100%;
+    overflow-y: auto;            /* MAIN scroll container (right side) */
+    padding: 40px 28px;
+    box-sizing: border-box;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* Main layout content card for visuals */
+  .docs-content {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 28px;
+    box-shadow: 0 1px 6px rgba(15, 23, 42, 0.04);
+  }
+
+  /* LEFT BAR: fixed overlay on left, independent scroll */
+  .left-bar {
+    position: fixed;
+    top: 20px;
+    left: 0;
+    height: calc(100vh - 40px);
+    width: var(--nav-width);
+    transform: translateX(calc(-1 * (var(--nav-width) - var(--peek-width))));
+    transition: transform 280ms cubic-bezier(.2,.9,.2,1);
+    z-index: 60;
+    display: flex;
+    align-items: start;
+    pointer-events: auto;
+  }
+
+  /* when expanded, slide fully into view */
+  .left-bar.expanded {
+    transform: translateX(0);
+  }
+
+  .left-card {
+    width: var(--nav-width);
+    background: var(--card);
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: 0 6px 24px rgba(2,6,23,0.12);
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    overflow: hidden;
+  }
+
+  /* the inner nav scrolls independently */
+  .left-nav {
+    overflow-y: auto;
+    padding-right: 6px; /* room for scrollbar */
+  }
+  .left-nav::-webkit-scrollbar { width: 10px; }
+  .left-nav::-webkit-scrollbar-thumb { background: rgba(2,6,23,0.08); border-radius: 8px; }
+
+  .nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .nav-list a {
+    display: block;
+    padding: 10px;
+    border-radius: 8px;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 14px;
+    transition: background 150ms, color 150ms, transform 120ms;
+  }
+
+  .nav-list a:hover {
+    background: rgba(14,165,233,0.06);
+    color: #0f172a;
+    transform: translateX(3px);
+  }
+
+  .nav-list a.active {
+    background: linear-gradient(90deg, rgba(14,165,233,0.12), rgba(14,165,233,0.06));
+    color: var(--accent);
+    font-weight: 600;
+    box-shadow: inset 3px 0 0 var(--accent);
+    margin-left: -6px;
+    padding-left: 14px;
+  }
+
+  /* the small toggle tab that remains visible when collapsed */
+  .toggle-tab {
+    position: absolute;
+    right: calc(-1 * var(--peek-width) + 8px);
+    top: 12px;
+    width: var(--toggle-size);
+    height: var(--toggle-size);
+    background: var(--card);
+    border-radius: 999px;
+    box-shadow: 0 4px 10px rgba(2,6,23,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: 1px solid rgba(15,23,42,0.06);
+  }
+
+  .toggle-tab:focus { outline: 3px solid rgba(14,165,233,0.18); }
+
+  /* overlay for when left is open on small screens */
+  .overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    background: rgba(2,6,23,0.32);
+    opacity: 0;
+    transition: opacity 200ms;
+  }
+  .overlay.visible { display:block; opacity:1; }
+
+  /* small responsive adjustments: overlay behavior and full-width slide */
+  @media (max-width: 900px) {
+    .left-bar {
+      left: 0;
+      transform: translateX(calc(-1 * var(--nav-width))); /* fully off when collapsed */
+      pointer-events: none;
+    }
+    .left-bar.expanded { transform: translateX(0); pointer-events: auto; }
+    .left-card { width: calc(100vw - 40px); max-width: 420px; }
+    .toggle-tab { right: -20px; } /* visible tab */
+  }
+
+  /* Page sections styling */
+  .doc-section { margin-bottom: 48px; padding-bottom: 8px; border-bottom: 1px solid rgba(15,23,42,0.04); }
+  .doc-section h2 { font-size: 20px; margin: 0 0 12px 0; }
+  .doc-section p { margin: 0 0 12px 0; color: #374151; }
+
+  .anchor { display:inline-block; width:1em; margin-left: -1.2em; padding-right:0.2em; color: var(--muted); text-decoration: none; font-size: 0.9em; }
+
+  /* small note for content: leave visual space to account for the left peek */
+  .content-wrap { padding-left: calc(var(--peek-width) + 28px); }
+
+  @media (max-width:900px) {
+    .content-wrap { padding-left: 20px; padding-right: 20px; }
+  }
+</style>
+</head>
+<body>
+<div class="page" id="page-root">
+
+  <!-- LEFT BAR (fixed) -->
+  <div class="left-bar" id="leftBar" aria-hidden="false">
+    <div class="left-card" role="navigation" aria-label="Page sections">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div style="font-weight:600">On this page</div>
+        <button id="collapseBtn" aria-expanded="false" title="Collapse" style="background:none;border:0;padding:6px;border-radius:6px;cursor:pointer">
+          <span aria-hidden="true">◀</span>
+        </button>
+      </div>
+
+      <nav class="left-nav" id="leftNav">
+        <ul class="nav-list" id="page-nav">
+          <li><a href="#intro">Introduction</a></li>
+          <li><a href="#setup">Setup</a></li>
+          <li><a href="#layout">Layout</a></li>
+          <li><a href="#grid">Using Grid</a></li>
+          <li><a href="#accessibility">Accessibility</a></li>
+          <li><a href="#conclusion">Conclusion</a></li>
+        </ul>
+      </nav>
+      <div style="margin-top:auto;font-size:12px;color:var(--muted)">Tip: click a link to jump to the section</div>
+
+      <!-- visible tab / toggle -->
+      <button id="toggleTab" class="toggle-tab" aria-controls="leftBar" aria-expanded="true" aria-label="Toggle left navigation">
+        <span id="toggleIcon">≡</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- overlay (shown only on small screens when left is expanded) -->
+  <div id="overlay" class="overlay" tabindex="-1" aria-hidden="true"></div>
+
+  <!-- RIGHT: main content (this is the scroll container observed by the scrollspy) -->
+  <div class="content-wrap" id="contentWrap" role="main" tabindex="0">
+    <div class="docs-content" id="docsContent">
+      <section id="intro" class="doc-section">
+        <h2>Introduction <a class="anchor" href="#intro">#</a></h2>
+        <p>This demo shows an off-canvas left nav that has its own scroll, plus a right content column that scrolls separately.</p>
+      </section>
+
+      <section id="setup" class="doc-section">
+        <h2>Setup <a class="anchor" href="#setup">#</a></h2>
+        <p>Left nav uses position:fixed and an internal scrollable container; the content area is the actual scroll container for sections (so we observe it).</p>
+      </section>
+
+      <section id="layout" class="doc-section">
+        <h2>Layout <a class="anchor" href="#layout">#</a></h2>
+        <p>When the left bar is collapsed it peeks out a bit; expand it to reveal the full nav. On small screens it overlays the content and shows an overlay.</p>
+      </section>
+
+      <section id="grid" class="doc-section">
+        <h2>Using Grid <a class="anchor" href="#grid">#</a></h2>
+        <p>Scroll the right column and watch the left nav highlight the section in view. The left nav remains fixed and scrolls independently if its items exceed its height.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel, qui. Repeat lines to create a longer scroll area...</p>
+        <p style="height:800px;background:linear-gradient(180deg,rgba(0,0,0,0.02),transparent)">(fake long content) scroll down...</p>
+      </section>
+
+      <section id="accessibility" class="doc-section">
+        <h2>Accessibility <a class="anchor" href="#accessibility">#</a></h2>
+        <p>All anchor links are keyboard-focusable. When a section becomes active we set aria-current on its link. Clicking a link sets focus to the section heading for screen readers.</p>
+      </section>
+
+      <section id="conclusion" class="doc-section">
+        <h2>Conclusion <a class="anchor" href="#conclusion">#</a></h2>
+        <p>This pattern keeps the nav and content scrolling separate and provides a neat off-canvas "game bar" effect for the nav. Use the toggle to hide/show it.</p>
+      </section>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ---------- Behavior:
+   - Toggle left bar expand/collapse (including overlay on small screens)
+   - Scrollspy: observe sections inside the right-side scroll container (contentWrap)
+   - Click handling: smooth jump + focus management
+   - Left nav has its own scroll independent of the main content
+*/
+
+(function() {
+  const leftBar = document.getElementById('leftBar');
+  const toggleTab = document.getElementById('toggleTab');
+  const collapseBtn = document.getElementById('collapseBtn');
+  const overlay = document.getElementById('overlay');
+  const pageNav = document.getElementById('page-nav');
+  const contentWrap = document.getElementById('contentWrap');
+  const navLinks = Array.from(pageNav.querySelectorAll('a'));
+  const SMALL_SCREEN = window.matchMedia('(max-width:900px)');
+
+  // start expanded on wide screens, collapsed on small screens
+  const defaultExpanded = !SMALL_SCREEN.matches;
+  let expanded = defaultExpanded;
+
+  function applyExpandedState(animated = true) {
+    if (expanded) {
+      leftBar.classList.add('expanded');
+      toggleTab.setAttribute('aria-expanded', 'true');
+      collapseBtn.setAttribute('aria-expanded', 'true');
+      overlay.classList.add('visible');
+      overlay.setAttribute('aria-hidden', 'false');
+    } else {
+      leftBar.classList.remove('expanded');
+      toggleTab.setAttribute('aria-expanded', 'false');
+      collapseBtn.setAttribute('aria-expanded', 'false');
+      overlay.classList.remove('visible');
+      overlay.setAttribute('aria-hidden', 'true');
+    }
+
+    // For wide screens we want the overlay hidden even when expanded
+    if (!SMALL_SCREEN.matches) {
+      overlay.classList.remove('visible');
+      overlay.setAttribute('aria-hidden', 'true');
+    }
+  }
+
+  // toggle handlers
+  toggleTab.addEventListener('click', () => {
+    expanded = !expanded;
+    applyExpandedState();
+    // if expanded, set focus into nav for keyboard users
+    if (expanded) {
+      const firstLink = pageNav.querySelector('a');
+      if (firstLink) firstLink.focus();
+    } else {
+      toggleTab.focus();
+    }
+  });
+
+  collapseBtn.addEventListener('click', () => {
+    expanded = false;
+    applyExpandedState();
+    toggleTab.focus();
+  });
+
+  // clicking overlay closes the left bar (mobile behavior)
+  overlay.addEventListener('click', () => {
+    expanded = false;
+    applyExpandedState();
+  });
+
+  // update state on resize/breakpoint change
+  SMALL_SCREEN.addEventListener('change', (e) => {
+    // collapse on small, expand on big (but preserve user toggles could be more advanced)
+    expanded = !e.matches;
+    applyExpandedState();
+  });
+
+  // -------- Scrollspy: observe sections inside contentWrap (not window) --------
+  const sections = navLinks
+    .map(a => document.getElementById(a.getAttribute('href').slice(1)))
+    .filter(Boolean);
+
+  function clearActive() {
+    navLinks.forEach(l => {
+      l.classList.remove('active');
+      l.removeAttribute('aria-current');
+    });
+  }
+
+  if ('IntersectionObserver' in window && sections.length) {
+    const observer = new IntersectionObserver((entries) => {
+      // pick the entry with largest intersectionRatio that is intersecting
+      const visible = entries.filter(e => e.isIntersecting);
+      if (visible.length === 0) return;
+
+      const top = visible.reduce((a, b) => (a.intersectionRatio > b.intersectionRatio ? a : b));
+      const id = top.target.id;
+      if (!id) return;
+      const matchingLink = pageNav.querySelector('a[href="#' + id + '"]');
+      if (matchingLink) {
+        clearActive();
+        matchingLink.classList.add('active');
+        matchingLink.setAttribute('aria-current', 'true');
+
+        // ensure the active item is visible inside the left-nav scroll viewport
+        // find scrollable parent and scroll to make it visible
+        matchingLink.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+      }
+    }, {
+      root: contentWrap,                         // OBSERVE the content scrolling element
+      rootMargin: ' -20% 0px -40% 0px',          // tune triggers (becomes active near center)
+      threshold: [0, 0.1, 0.25, 0.5, 0.75, 1]
+    });
+
+    sections.forEach(s => observer.observe(s));
+  } else {
+    // fallback: highlight on click only
+    navLinks.forEach(l => l.addEventListener('click', () => {
+      clearActive();
+      l.classList.add('active');
+      l.setAttribute('aria-current', 'true');
+    }));
+  }
+
+  // Clicks on nav links: smooth scroll inside contentWrap and focus heading for screen readers
+  navLinks.forEach(l => {
+    l.addEventListener('click', (ev) => {
+      const id = l.getAttribute('href').slice(1);
+      const target = document.getElementById(id);
+      if (!target) return;
+      ev.preventDefault();
+
+      // compute top of target relative to contentWrap
+      // scroll container: contentWrap.scrollTop to (target.offsetTop within contentWrap)
+      const targetRect = target.getBoundingClientRect();
+      const containerRect = contentWrap.getBoundingClientRect();
+      const offset = targetRect.top - containerRect.top + contentWrap.scrollTop;
+
+      // scroll with behavior: smooth
+      contentWrap.scrollTo({ top: offset - 12, behavior: 'smooth' });
+
+      // collapse the left bar on small screens after navigation
+      if (SMALL_SCREEN.matches) {
+        expanded = false;
+        applyExpandedState();
+      }
+
+      // After a short delay focus the heading in the target for screen readers
+      setTimeout(() => {
+        const h = target.querySelector('h2, h1, h3');
+        if (h) {
+          h.setAttribute('tabindex','-1');
+          h.focus({ preventScroll: true });
+        }
+      }, 450);
+    });
+  });
+
+  // Initialize UI state
+  applyExpandedState();
+
+  // Accessibility: allow ESC to close left on small screens
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && SMALL_SCREEN.matches && expanded) {
+      expanded = false;
+      applyExpandedState();
+      toggleTab.focus();
+    }
+  });
+
+  // Small improvement: when contentWrap gets focusable keyboard scroll happens naturally (no extra code)
+})();
+</script>
+</body>
+</html>

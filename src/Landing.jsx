@@ -4,6 +4,8 @@ import linkedin from "./assets/linkedin.svg";
 import mailme from "./assets/mailme.svg";
 import pic4 from "./assets/pic4.jpg";
 import rightarrow from "./assets/rightarrow.svg";
+import { Link } from "react-router-dom";
+import Projects from "./Projects";
 
 const Landing = () => {
   return (
@@ -19,20 +21,20 @@ const Landing = () => {
         </h1>
       </header>
       <div className="order-1 flex items-center justify-between gap-4 sm:order-0 sm:justify-end lg:order-3">
-        <a href="#">
+        <a href="https://github.com/Thedrogon">
           <img src={github} alt="github" />
         </a>
-        <a href="#">
+        <a href="https://www.linkedin.com/in/sayanjit-mukherjee/">
           <img src={linkedin} alt="linkedin" />
         </a>
       </div>
       <nav className="flex items-center sm:justify-end lg:justify-center sm:col-start-2 gap-6 lg:order-2">
-        <a
-          href="#"
+        <Link
+          to='/Projects'
           className="font-semibold text-lg hover:underline decoration-slate-400 decoration-4"
         >
           Projects
-        </a>
+        </Link>
         <a
           href="#"
           className="font-semibold text-lg hover:underline decoration-slate-400 decoration-4 flex items-center justify-center space-x-1.5"
@@ -52,11 +54,11 @@ const Landing = () => {
               className="block aspect-3/4 max-w-full rounded-lg shadow-lg sm:w-72 lg:w-96"
             />
           </picture>
-          <section className="space-y-4 text-slate-300 tablet:order-last">
-            <h1 className="text-[20px]">
+          <section className="space-y-5 text-slate-300 tablet:order-last">
+            <h1 className="text-[21px]">
               Hi I'm <strong className="text-[23px] text-white">Shayan,</strong>
             </h1>
-            <p className="text-[17px]">
+            <p className="text-[18px]">
               A
               <strong className="text-white">
                 {" "}
@@ -65,7 +67,7 @@ const Landing = () => {
               based in India, passionate about emerging technologies and
               building meaningful software.
             </p>
-            <p className="text-[16px]">
+            <p className="text-[18px]">
               As a final year student, I tend to deep dive my interests into{" "}
               <strong className="text-white">javascript</strong> and{" "}
               <strong className="text-white">python.</strong> I have explored a
@@ -74,19 +76,19 @@ const Landing = () => {
               Right now I am learning <strong>typescript </strong>so that while
               making my projects I can finally use <strong>Next.</strong>
             </p>
-            <p className="text-[16px]">
+            <p className="text-[18px]">
               I have been working on a few fullstack projects that are mostly{" "}
               <strong>Saas apps.</strong> Some of them are listed in the
-              <a
-                href="#"
+              <Link
+                to='/Projects'
                 className="font-bold text-white underline decoration-2 decoration-slate-400"
               >
                 {" "}
                 projects
-              </a>{" "}
+              </Link>{" "}
               area.
             </p>
-            <p className="text-[16px]">
+            <p className="text-[18px]">
               Throughout the years I have realised,{" "}
               <span className="text-white italic font-medium">
                 "the best way to improve and thrive in a skill is to teach that
@@ -96,7 +98,7 @@ const Landing = () => {
               and write Medium blogs everyday about the topic I study on that
               very same day. If you like to read too, you can visit me in
               <a
-                href="#"
+                href="https://medium.com/@aec.sayanjitmukherjee"
                 className="text-white font-bold underline decoration-2 decoration-slate-400"
               >
                 {" "}
@@ -121,7 +123,7 @@ const Landing = () => {
               </div>
               <div className="flex items-center justify-center gap-1.5">
                 <a
-                  href="#"
+                  href="https://leetcode.com/u/Thedrogon/"
                   className="underline decoration-3 decoration-slate-400"
                 >
                   check my leetcode
