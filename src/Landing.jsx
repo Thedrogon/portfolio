@@ -73,8 +73,7 @@ const Landing = () => {
               <strong className="text-white">python.</strong> I have explored a
               lot of libraries and frameworks but the ones that I work mostly
               with is <strong>React.js </strong>and <strong>FastAPI.</strong>{" "}
-              Right now I am learning <strong>typescript </strong>so that while
-              making my projects I can finally use <strong>Next.</strong>
+              Right now I am learning <strong>typescript </strong>so that I can finally use <strong>Next.</strong>
             </p>
             <p className="text-[18px]">
               I have been working on a few fullstack projects that are mostly{" "}
