@@ -8,7 +8,7 @@
   --breakpoint-tablet: 640px;
 }
 
-
+/* 
 @layer utilities {
   .scrollbar-thin::-webkit-scrollbar {
     width: 10px;
@@ -31,4 +31,4 @@
   .scrollbar-thin::-webkit-scrollbar-position{
     position: center;
   }
-}
+} */
