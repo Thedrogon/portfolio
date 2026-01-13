@@ -6,7 +6,7 @@ import pic4 from "./assets/pic4.jpg";
 import rightarrow from "./assets/rightarrow.svg";
 import { Link } from "react-router-dom";
 import project from "./assets/project.svg";
-import resume from './assets/resume.svg'
+import resume from "./assets/resume.svg";
 //import Projects from "./Projects";
 
 const Landing = () => {
@@ -30,27 +30,51 @@ const Landing = () => {
           <img src={linkedin} alt="linkedin" />
         </a>
       </div>
-      <nav className="flex items-center sm:justify-end lg:justify-center sm:col-start-2 gap-16 lg:order-2 ">
+      <nav
+        className="flex items-center justify-center
+    gap-4 sm:gap-6 lg:gap-16
+    whitespace-nowrap
+    lg:order-2"
+      >
         <Link
           to="/Projects"
-          className="font-semibold text-lg hover:underline decoration-slate-400 decoration-4 flex  justify-center items-center space-x-0.5"
+          className="
+    flex items-center gap-1
+    text-sm sm:text-base lg:text-lg
+    font-semibold
+    hover:underline decoration-slate-400 decoration-4
+  "
         >
-          <img src={project} alt="projects" className="h-8"/>
+          <img src={project} alt="projects" className="h-5 sm:h-6 lg:h-8" />
           <span className="leading-none">Projects</span>
         </Link>
-        <Link to="/Resume" 
-        className="font-semibold text-lg hover:underline whitespace-nowrap decoration-slate-400 decoration-4 flex justify-center items-center space-x-1.5" >
-          <img src={resume} alt="resume" className="h-9"/>
+
+        <Link
+          to="/Resume"
+          className="
+    flex items-center gap-1.5
+    text-sm sm:text-base lg:text-lg
+    font-semibold whitespace-nowrap
+    hover:underline decoration-slate-400 decoration-4
+  "
+        >
+          <img src={resume} alt="resume" className="h-6 sm:h-7 lg:h-9" />
           <span>wanna know me?</span>
         </Link>
+
         <a
           href="https://mail.google.com/mail/?view=cm&fs=1&to=aec.sayanjitmukherjee@gmail.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="font-semibold text-lg hover:underline decoration-slate-400 whitespace-nowrap decoration-4 flex items-center justify-center space-x-1.5"
+          className="
+    flex items-center gap-1.5
+    text-sm sm:text-base lg:text-lg
+    font-semibold whitespace-nowrap
+    hover:underline decoration-slate-400 decoration-4
+  "
         >
-          <img src={mailme} alt="Mail me" className="h-5 " />
-          <p>Let's talk</p>
+          <img src={mailme} alt="Mail me" className="h-4 sm:h-5 lg:h-6" />
+          <span>Let's talk</span>
         </a>
       </nav>
       <div className="my-4 col-span-full lg:order-3">
