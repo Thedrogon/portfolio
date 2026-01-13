@@ -5,6 +5,8 @@ import mailme from "./assets/mailme.svg";
 import pic4 from "./assets/pic4.jpg";
 import rightarrow from "./assets/rightarrow.svg";
 import { Link } from "react-router-dom";
+import project from "./assets/project.svg";
+import resume from './assets/resume.svg'
 //import Projects from "./Projects";
 
 const Landing = () => {
@@ -28,18 +30,24 @@ const Landing = () => {
           <img src={linkedin} alt="linkedin" />
         </a>
       </div>
-      <nav className="flex items-center sm:justify-end lg:justify-center sm:col-start-2 gap-10 lg:order-2">
+      <nav className="flex items-center sm:justify-end lg:justify-center sm:col-start-2 gap-16 lg:order-2 ">
         <Link
-          to='/Projects'
-          className="font-semibold text-lg hover:underline decoration-slate-400 decoration-4"
+          to="/Projects"
+          className="font-semibold text-lg hover:underline decoration-slate-400 decoration-4 flex  justify-center items-center space-x-0.5"
         >
-          Projects
+          <img src={project} alt="projects" className="h-8"/>
+          <span className="leading-none">Projects</span>
+        </Link>
+        <Link to="/Resume" 
+        className="font-semibold text-lg hover:underline whitespace-nowrap decoration-slate-400 decoration-4 flex justify-center items-center space-x-1.5" >
+          <img src={resume} alt="resume" className="h-9"/>
+          <span>wanna know me?</span>
         </Link>
         <a
           href="https://mail.google.com/mail/?view=cm&fs=1&to=aec.sayanjitmukherjee@gmail.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="font-semibold text-lg hover:underline decoration-slate-400 decoration-4 flex items-center justify-center space-x-1.5"
+          className="font-semibold text-lg hover:underline decoration-slate-400 whitespace-nowrap decoration-4 flex items-center justify-center space-x-1.5"
         >
           <img src={mailme} alt="Mail me" className="h-5 " />
           <p>Let's talk</p>
@@ -74,18 +82,19 @@ const Landing = () => {
             <p className="text-[17px]">
               As a final year student, I tend to deep dive my interests into{" "}
               <strong className="text-yellow-100">javascript</strong> and{" "}
-              <strong className="text-blue-400">typescript.</strong> I have explored a
-              lot of libraries and frameworks but the ones that I mostly work
-              with is <strong className="text-blue-300">React.js (Client and Server components)</strong>.{" "}
-              Right now I am learning <strong>typescript </strong>in depth so that I can finally use <strong>Next</strong>.
+              <strong className="text-blue-400">typescript.</strong> I have
+              explored a lot of libraries and frameworks but the ones that I
+              mostly work with is{" "}
+              <strong className="text-blue-300">
+                React.js (Client and Server components)
+              </strong>
+              . Right now I am learning <strong>typescript </strong>in depth so
+              that I can finally use <strong>Next</strong>.
             </p>
             <p className="text-[18px]">
               I have been working on a few fullstack projects that are mostly{" "}
               <strong>Saas apps.</strong> Some of them are listed in the
-              <Link
-                to='/Projects'
-                className="font-bold text-white "
-              >
+              <Link to="/Projects" className="font-bold text-white ">
                 {" "}
                 <span> projects </span>
               </Link>{" "}
@@ -97,7 +106,7 @@ const Landing = () => {
                 "the best way to improve and thrive in a skill is to teach that
                 very skill to others".{" "}
               </span>
-                  For the sake of that I made this solemn resolve to grind leetcode
+              For the sake of that I made this solemn resolve to grind leetcode
               and write Medium blogs everyday about the topic I study on that
               very same day. If you like to read too, you can visit me in
               <a
