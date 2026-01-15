@@ -113,7 +113,7 @@ const Landing = () => {
               <div className="flex items-center justify-center gap-1.5">
                 <a
                   href="#"
-                  className="whitespace-nowrap underline decoration-slate-400 decoration-3"
+                  className="underline decoration-3 decoration-slate-400 whitespace-nowrap"
                 >
                   read my blogs
                 </a>
@@ -122,7 +122,7 @@ const Landing = () => {
               <div className="flex items-center justify-center gap-1.5">
                 <a
                   href="https://leetcode.com/u/Thedrogon/"
-                  className="whitespace-nowrap underline decoration-slate-400 decoration-3"
+                  className="underline decoration-3 decoration-slate-400 whitespace-nowrap"
                 >
                   check my leetcode
                 </a>
