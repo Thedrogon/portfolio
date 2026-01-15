@@ -1,6 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+//not used anymore
 
 const Errors = () => {
+  const navigation = useNavigate()
   return (
     <main class="grid min-h-full place-items-center px-6 py-24 sm:py-32 lg:px-8 z-10">
       <div class="text-center">
@@ -13,8 +16,8 @@ const Errors = () => {
         </p>
         <div class="mt-10 flex items-center justify-center gap-x-6">
           <a
-            href="/"
-            class="rounded-md bg-neutral-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+            onClick={() => navigation('/',{replace:true})}
+            class="rounded-md bg-neutral-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 cursor-pointer"
           >
             Go back home
           </a>

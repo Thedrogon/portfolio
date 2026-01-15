@@ -7,7 +7,13 @@
   --color-pearl-black: oklch(19.4% .047 245.441);
   --breakpoint-tablet: 640px;
 }
-
+@utility glass{
+  background: transparent;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
 /* 
 @layer utilities {
   .scrollbar-thin::-webkit-scrollbar {
