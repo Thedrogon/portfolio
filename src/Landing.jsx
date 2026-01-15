@@ -39,14 +39,6 @@ const Landing = () => {
           <span className="leading-none">Projects</span>
         </Link>
 
-        <Link
-          to="/Resume"
-          className="flex items-center gap-1.5 text-sm font-semibold whitespace-nowrap decoration-slate-400 decoration-4 hover:underline sm:text-base lg:text-lg"
-        >
-          <img src={resume} alt="resume" className="h-6 sm:h-7 lg:h-9" />
-          <span>wanna know me?</span>
-        </Link>
-
         <a
           href="https://mail.google.com/mail/?view=cm&fs=1&to=aec.sayanjitmukherjee@gmail.com"
           target="_blank"
