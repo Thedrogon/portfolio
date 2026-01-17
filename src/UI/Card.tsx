@@ -1,10 +1,20 @@
 import React from 'react'
+import { Code, Eye } from 'lucide-react';
+
+type Card = { 
+  id: string;
+  src: string;
+  frameworks: string[];
+  title: string;
+  para1: string;
+  para2: string;
+}
 
 
-const Card = () => {
+const Card = ({id,src, frameworks, title, para1, para2}:Card) => {
   return (
     <section
-          id="Berry"
+          id={id}
           className="relative overflow-hidden rounded-2xl border border-white/12 bg-[color-mix(in_oklch,white_4%,transparent)] p-6 shadow-[0_24px_48px_-24px_oklch(0%_0_0/0.9)] backdrop-blur-xl backdrop-saturate-150"
         >
           <div className="pointer-events-none absolute inset-0 bg-linear-to-br from-white/18 via-white/4 to-transparent" />
@@ -13,8 +23,8 @@ const Card = () => {
             <div className="shrink-0">
               <div className="relative overflow-hidden rounded-xl shadow-2xl">
                 <img
-                  src={Berry}
-                  alt="Berry project"
+                  src={src}
+                  alt=''
                   width={768}
                   height={1024}
                   className="block aspect-3/2 max-w-full transform object-cover transition-transform duration-300 hover:scale-105 sm:w-72 lg:w-96"
@@ -23,27 +33,24 @@ const Card = () => {
               </div>
               <div className="mt-3 flex items-center gap-3">
                 <span className="inline-flex items-center rounded-md bg-emerald-700/20 px-2 py-1 text-xs text-emerald-200">
-                  React
+                  {frameworks[0]}
                 </span>
                 <span className="inline-flex items-center rounded-md bg-slate-700/30 px-2 py-1 text-xs text-slate-200">
-                  Tailwind
+                  {frameworks[1]}
                 </span>
               </div>
             </div>
 
             <div className="prose prose-invert max-w-none lg:max-w-xl">
               <h3 className="mb-2 text-2xl font-semibold text-slate-100">
-                Berry — Design & Layout
+                {title}
               </h3>
               <p className="leading-relaxed text-slate-300">
-                A clean product landing mock with emphasis on visual rhythm, spacing and a
-                moody palette. Hover the image to see a subtle scale effect; use the links
-                on the left to jump between projects.
+                {para1}
               </p>
 
               <p className="text-slate-400">
-                Small features added: smooth scroll, active nav highlighting, tech badges
-                and subtle card glow.
+               {para2}
               </p>
 
               <div className="mt-4 flex gap-3">

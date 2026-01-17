@@ -2,7 +2,6 @@ import React from 'react'
 import Landing from './Landing'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import Projects from './Projects'
-import Errors from './Errors'
 
 const App = () => {
   return (
