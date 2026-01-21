@@ -1,13 +1,20 @@
-name: Deployment
+name: Deploy
+
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+
+permissions:
+  contents: read
+  statuses: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: 'notify vercel'
-        uses: 'vercel/repository-dispatch/actions/status@v1'
+      - uses: actions/checkout@v4
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v25
         with:
-          name: 'Vercel - shayans-portfolio: deployment'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          vercel_token: ${{ secrets.VERCEL_TOKEN }}
