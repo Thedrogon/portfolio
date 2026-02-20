@@ -98,9 +98,7 @@ const Landing = () => {
 
         {/* Cyan Highlight - Center */}
         <div className="ambient-orb-3 absolute top-[30%] left-[25%] h-[40vh] w-[40vw] rounded-full bg-teal-500/10 blur-[100px]" />
-
-        {/* Noise overlay to give it a premium, textured matte feel */}
-        <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] mix-blend-overlay" />
+        
       </div>
 
       {/* --- MAIN CONTENT (Wrapped to stay above background) --- */}
