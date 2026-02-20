@@ -1,5 +1,5 @@
-import typezeroImg from './src/assets/typezero.png'; // Adjust path if needed
-import forklensImg from './src/assets/forklens.png';
+import typezeroImg from '../assets/typezero.png'; // Adjust path if needed
+import forklensImg from '../assets/forklens.png';
 
 export const TypeZero = {
   id: 'typezero',
