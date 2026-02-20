@@ -1,78 +1,133 @@
-import React from 'react'
-import { Code, Eye } from 'lucide-react';
+import React, { useRef } from 'react';
+import { Code, Eye, ChevronRight } from 'lucide-react';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-type Card = { 
+gsap.registerPlugin(ScrollTrigger);
+
+type CardProps = { 
   id: string;
   src: string;
-  frameworks: string[];
+  techStack: string[];
   title: string;
-  para1: string;
-  para2: string;
+  description: string;
+  features: string[];
+  liveLink?: string;
+  codeLink?: string;
+  index: number;
 }
 
+const Card = ({ id, src, techStack, title, description, features, liveLink, codeLink, index }: CardProps) => {
+  const container = useRef<HTMLElement>(null);
+  const isEven = index % 2 === 0;
 
-const Card = ({id,src, frameworks, title, para1, para2}:Card) => {
+  useGSAP(() => {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: container.current,
+        start: "top 80%", // Triggers slightly earlier so it doesn't feel delayed
+        toggleActions: "play none none reverse",
+      }
+    });
+
+    tl.from(".project-image", {
+      x: isEven ? -50 : 50, // Reduced the travel distance so it snaps in faster
+      opacity: 0,
+      scale: 0.98,
+      duration: 1,
+      ease: "power3.out",
+    })
+    .from(".project-text-item", {
+      y: 20, // Reduced vertical travel
+      opacity: 0,
+      duration: 0.6,
+      stagger: 0.1,
+      ease: "power3.out",
+    }, "-=0.6");
+
+  }, { scope: container });
+
   return (
     <section
-          id={id}
-          className="relative overflow-hidden rounded-2xl border border-white/12 bg-[color-mix(in_oklch,white_4%,transparent)] p-6 shadow-[0_24px_48px_-24px_oklch(0%_0_0/0.9)] backdrop-blur-xl backdrop-saturate-150"
-        >
-          <div className="pointer-events-none absolute inset-0 bg-linear-to-br from-white/18 via-white/4 to-transparent" />
+      ref={container}
+      id={id}
+      // Massively reduced vertical padding (py) and gap between elements
+      className={`relative flex flex-col gap-8 py-10 lg:gap-12 lg:py-12 border-b border-white/5 last:border-0 ${
+        isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'
+      } items-center w-full`}
+    >
+      {/* Visual Container (Balanced to 50% width) */}
+      <div className="project-image w-full lg:w-1/2 relative group z-10">
+        <div className="relative overflow-hidden rounded-xl border border-white/10 shadow-2xl shadow-emerald-900/10 bg-slate-900">
+          <img
+            src={src}
+            alt={`${title} preview`}
+            width={1200}
+            height={800}
+            className="block aspect-video w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+          />
+          <div className="pointer-events-none absolute inset-0 shadow-[inset_0_0_30px_rgba(0,0,0,0.5)]" />
+        </div>
+      </div>
 
-          <div className="flex flex-col items-start gap-6 transition-all lg:flex-row">
-            <div className="shrink-0">
-              <div className="relative overflow-hidden rounded-xl shadow-2xl">
-                <img
-                  src={src}
-                  alt=''
-                  width={768}
-                  height={1024}
-                  className="block aspect-3/2 max-w-full transform object-cover transition-transform duration-300 hover:scale-105 sm:w-72 lg:w-96"
-                />
-                <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent" />
-              </div>
-              <div className="mt-3 flex items-center gap-3">
-                <span className="inline-flex items-center rounded-md bg-emerald-700/20 px-2 py-1 text-xs text-emerald-200">
-                  {frameworks[0]}
-                </span>
-                <span className="inline-flex items-center rounded-md bg-slate-700/30 px-2 py-1 text-xs text-slate-200">
-                  {frameworks[1]}
-                </span>
-              </div>
-            </div>
+      {/* Content Container (Balanced to 50% width) */}
+      <div className="flex flex-col flex-1 w-full lg:w-1/2">
+        
+        <div className="project-text-item mb-4 flex flex-wrap items-center gap-2">
+          {techStack.map((tech, idx) => (
+            <span 
+              key={idx} 
+              className={`inline-flex items-center rounded-md px-2.5 py-1 text-[11px] font-bold tracking-wide uppercase ${
+                idx === 0 
+                  ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30' 
+                  : 'bg-slate-800/80 text-slate-300 border border-white/10'
+              }`}
+            >
+              {tech}
+            </span>
+          ))}
+        </div>
 
-            <div className="prose prose-invert max-w-none lg:max-w-xl">
-              <h3 className="mb-2 text-2xl font-semibold text-slate-100">
-                {title}
-              </h3>
-              <p className="leading-relaxed text-slate-300">
-                {para1}
-              </p>
+        {/* Tighter margins on text blocks */}
+        <h3 className="project-text-item mb-2 text-2xl font-extrabold tracking-tight text-white lg:text-3xl">
+          {title}
+        </h3>
+        <p className="project-text-item mb-5 leading-relaxed text-slate-400 text-sm md:text-base">
+          {description}
+        </p>
 
-              <p className="text-slate-400">
-               {para2}
-              </p>
+        <ul className="project-text-item mb-6 space-y-2 text-sm text-slate-300">
+          {features.map((feature, idx) => (
+            <li key={idx} className="flex items-start gap-2">
+              <ChevronRight className="mt-0.5 shrink-0 text-emerald-500" size={16} />
+              <span className="leading-snug">{feature}</span>
+            </li>
+          ))}
+        </ul>
 
-              <div className="mt-4 flex gap-3">
-                <a
-                  className="inline-flex items-center gap-2 rounded-lg bg-emerald-600/95 px-4 py-2 shadow transition-shadow hover:bg-emerald-500"
-                  href="#"
-                  onClick={e => e.preventDefault()}
-                >
-                  <Eye size={16} /> <span className="text-sm font-medium">Live</span>
-                </a>
-                <a
-                  className="inline-flex items-center gap-2 rounded-lg border border-slate-700 px-4 py-2 transition hover:border-emerald-400"
-                  href="#"
-                  onClick={e => e.preventDefault()}
-                >
-                  <Code size={16} className='text-emerald-500' /> <span className="text-sm font-medium text-emerald-500">Code</span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
-  )
-}
+        {/* Buttons */}
+        <div className="project-text-item flex flex-wrap gap-3 mt-auto pt-2">
+          <a
+            className="inline-flex items-center gap-2 rounded-lg bg-emerald-600 px-5 py-2.5 text-sm font-bold text-white shadow-lg transition-all hover:bg-emerald-500 hover:scale-105"
+            href={liveLink || "#"}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <Eye size={18} /> <span>Inspect Live</span>
+          </a>
+          <a
+            className="inline-flex items-center gap-2 rounded-lg border border-slate-700 bg-slate-900 px-5 py-2.5 text-sm font-bold text-slate-300 transition-all hover:border-emerald-500/50 hover:text-emerald-400 hover:bg-slate-800"
+            href={codeLink || "#"}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <Code size={18} /> <span>Source Code</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+};
 
-export default Card
+export default Card;

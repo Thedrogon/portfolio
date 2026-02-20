@@ -1,36 +1,30 @@
 import './index.css';
-import Area from './assets/Area.png';
-import Berrypic from './assets/berry-plan.png';
-import { Berry, Plutus } from './UI/Object';
+import { TypeZero, ForkLens } from './UI/Object';
 import Card from './UI/Card';
-// framer-motion removed per request
 
 const Projects = () => {
   return (
-    <div className="text-slate-20 mx-auto my-10 max-w-7xl items-center px-4 md:px-8">
-      <main className="flex flex-col items-center justify-center gap-12">
-        <Card
-          id={Berry.id}
-          src={Berrypic}
-          frameworks={Berry.frameworks}
-          title={Berry.title}
-          para1={Berry.para1}
-          para2={Berry.para2}
-        />
+    <div className="mx-auto my-10 max-w-7xl px-4 md:px-8 overflow-hidden">
+      
+      {/* Tighter Header */}
+      <div className="mb-10 text-center lg:text-left">
+        <h2 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
+          Featured <span className="text-emerald-500">Architecture.</span>
+        </h2>
+        <p className="mt-3 text-lg text-slate-400 max-w-2xl">
+          I don't build generic student projects. I engineer scalable systems optimized for O(n) performance and zero latency.
+        </p>
+      </div>
 
-        <Card
-          id={Plutus.id}
-          src={Area}
-          frameworks={Plutus.frameworks}
-          title={Plutus.title}
-          para1={Plutus.para1}
-          para2={Plutus.para2}
-        />
+      <main className="flex flex-col w-full">
+        <Card {...TypeZero} index={0} />
+        <Card {...ForkLens} index={1} />
       </main>
 
-      <div className="pointer-events-none fixed right-6 bottom-6 hidden md:block">
-        <div className="rounded-2xl bg-black/30 px-4 py-2 text-xs text-slate-300 ring-1 ring-emerald-600/20">
-          Kept it moody · subtle motion
+      {/* Floating HUD Element */}
+      <div className="pointer-events-none fixed right-6 bottom-6 hidden md:block z-50">
+        <div className="rounded-full bg-slate-900/80 px-4 py-2 text-xs font-bold tracking-widest text-emerald-400 ring-1 ring-emerald-500/30 backdrop-blur-md shadow-[0_0_15px_rgba(16,185,129,0.2)]">
+          LIVE PROJECTS
         </div>
       </div>
     </div>
